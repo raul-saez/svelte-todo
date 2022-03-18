@@ -4,8 +4,8 @@
 		status: boolean
 	}
 
-    let newItem = '';
-    let todoList: TODO[] = [
+	let newItem = '';
+	let todoList: TODO[] = [
 		{text: 'Create Svelte TODO', status: true},
 		{text: 'Test 1', status: false},
 		{text: 'Test 2', status: false},
@@ -19,7 +19,7 @@
 	function removeTODO(index: number) {
 		todoList.splice(index, 1)
 		todoList = todoList;
-    }
+	}
 </script>
 
 <input bind:value={newItem} type="text" placeholder="Type todo item...">
@@ -53,6 +53,6 @@
 <style> 
 	.checked {
 		opacity: .5;
-        text-decoration: line-through;
-    }
+		text-decoration: line-through;
+	}
 </style> 
