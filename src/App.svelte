@@ -1,30 +1,58 @@
-<script>
-	export let name;
+<script lang="ts">
+	type TODO = {
+		text: string
+		status: boolean
+	}
+
+    let newItem = '';
+    let todoList: TODO[] = [
+		{text: 'Create Svelte TODO', status: true},
+		{text: 'Test 1', status: false},
+		{text: 'Test 2', status: false},
+	];
+	
+	function addTODO() {
+		todoList = [...todoList, {text: newItem, status: false}];
+		newItem = '';
+	}
+	
+	function removeTODO(index: number) {
+		todoList.splice(index, 1)
+		todoList = todoList;
+    }
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<input bind:value={newItem} type="text" placeholder="Type todo item...">
+<button on:click={addTODO}>Add</button>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+<br/>
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+<h3>TODO:</h3>
+{#each todoList as item, index}
+	{#if !item.status}
+		<input bind:checked={item.status} type="checkbox">
+		<span class:checked={item.status}>{item.text}</span>
+		<button on:click={() => removeTODO(index)}>Remove</button>
+		<br/>
+	{/if}
+{/each}
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+<hr />
+
+<h3>Complete:</h3>
+{#each todoList as item, index}
+	{#if item.status}
+		<input bind:checked={item.status} type="checkbox">
+		<span class:checked={item.status}>{item.text}</span>
+		<button on:click={() => removeTODO(index)}>Remove</button>
+		<br/>
+	{/if}
+{/each} 
+
+
+<style> 
+	.checked {
+		opacity: .5;
+        text-decoration: line-through;
+    }
+</style> 
